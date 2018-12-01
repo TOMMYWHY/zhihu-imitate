@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,5 +39,9 @@ class User extends Authenticatable
 			$message->from('tommy_admin@zhihu.com', 'Tommy-zhihu');
 			$message->to($this->email);
 		});
+    }
+
+	public function owns( Model $model) {
+		return $this->id = $model->user_id;
     }
 }

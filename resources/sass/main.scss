@@ -1,4 +1,32 @@
+@import "./../css/select2.min";
 .alert{
   text-align: center;
 }
 
+//
+//.navbar-laravel {
+//  //background-color: #fff;
+//  background-color: black;
+//  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+//}
+
+.panel-body img{
+  width: 100%;
+}
+.topic_a{
+  background: #eff6fa;
+  //color: red !important;
+
+  padding: 1px 10px 0;
+  border-radius: 30px;
+  text-decoration: none;
+  margin: 0 5px 5px 0;
+  display: inline-block;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.topic_a:hover{
+  background: #259;
+  color: #fff;
+  text-decoration: none;
+}

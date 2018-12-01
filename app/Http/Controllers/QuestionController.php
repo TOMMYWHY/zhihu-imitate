@@ -3,49 +3,103 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
-use App\Question;
+use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Auth;
 use Auth;
 class QuestionController extends Controller
 {
-    //
+
+	/**
+	 * @var QuestionRepository
+	 */
+	protected $questionRepository;
+	/**
+	 * QuestionController constructor.
+	 */
+	public function __construct(QuestionRepository $question_repository) {
+		$this->middleware('auth')->except( ['index','show']);//除index show，其他方法使用中间件。
+		$this->questionRepository = $question_repository;
+	}
+
+	/**
+	 *
+	 */
 	public function index() {
 
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function create() {
 		return view('questions.create');
 	}
 
+	/**
+	 * @param StoreQuestionRequest $request
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function store(StoreQuestionRequest $request) {
-//        return $request->all();
-		/*
-		 *
-		$rules=[
-			'title'=>'required|min:6|max:196',
-			'body'=>'required|min:26',
-		];
-		$msg =[
-			'title.required' => 'title could not be empty~!',
-			'body.required' => 'body could not be empty~!'
 
-		];
-		$this->validate( $request, $rules,$msg);
+		//判断传递的topics 数组
+		$topics = $this->questionRepository->normalizeTopic( $request->get( 'topics'));
+//		dd( $topics);
 
-		*/
 		$data = [
 			"title" => $request->get( 'title'),
 			"body" => $request->get( 'body'),
 			'user_id'=>Auth::id(),
 		];
-		$question = Question::create($data);
+
+		$question = $this->questionRepository->create( $data);
+		$res =  $question->topics()->attach($topics);
+//		dd( $res);
 		return redirect()->route( 'questions.show',[$question->id]);
+
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function show( $id ) {
-		$question = Question::findOrFail($id);
+
+		$question = $this->questionRepository->byIdWithTopics( $id);
+
 		return view('questions.show',compact( 'question'));
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function edit( $id ) {
+
+		$question = $this->questionRepository->byId( $id);
+//		dd( $question);
+		if(Auth::user()->owns($question)){
+			return view('questions.edit',compact( 'question'));
+
+		}
+		return back();
+	}
+
+	/**
+	 *
+	 */
+	public function update(StoreQuestionRequest $request, $id) {
+		$question = $this->questionRepository->byId( $id);
+		$topics = $this->questionRepository->normalizeTopic( $request->get( 'topics'));
+		$question->update([
+			'title'=>$request->get( 'title'),
+			'body'=>$request->get( 'body'),
+		]);
+		$question->topics()->sync($topics);
+//		dd( 'qqq');
+		return redirect()->route( 'questions.show',[$question->id]);
 	}
 
 }
