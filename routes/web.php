@@ -19,3 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');//middleware('auth')
 Route::get('email/verify/{token}','EmailController@verify' )->name('email.verify');//注册之后，用户邮箱中验证地址路由
+
+
+Route::resource('/questions', 'QuestionController',['name'=>[
+	'create'=>'question.create',
+	'show'=>'question.show',
+
+]]);
+

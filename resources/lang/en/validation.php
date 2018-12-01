@@ -127,8 +127,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'unique' => 'The email is used ~!',
+        ],
+        'password' => [
+	        'confirmed' => 'please double check password~!',
         ],
     ],
 

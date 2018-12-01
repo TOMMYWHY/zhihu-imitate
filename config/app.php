@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Zhihu'),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,7 @@ return [
 
 //	    private
 	    Naux\Mail\SendCloudServiceProvider::class,
+	    Overtrue\LaravelUEditor\UEditorServiceProvider::class,
 
 
     ],
