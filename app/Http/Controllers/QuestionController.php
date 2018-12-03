@@ -6,6 +6,11 @@ use App\Http\Requests\StoreQuestionRequest;
 use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
 use Auth;
+
+/**
+ * Class QuestionController
+ * @package App\Http\Controllers
+ */
 class QuestionController extends Controller
 {
 
@@ -25,7 +30,8 @@ class QuestionController extends Controller
 	 *
 	 */
 	public function index() {
-
+		$questions =$this->questionRepository->getQuestionsFeed();
+		return view('questions.index',compact( 'questions'));
 	}
 
 	/**
@@ -87,8 +93,12 @@ class QuestionController extends Controller
 		return back();
 	}
 
+
 	/**
+	 * @param StoreQuestionRequest $request
+	 * @param $id
 	 *
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function update(StoreQuestionRequest $request, $id) {
 		$question = $this->questionRepository->byId( $id);
@@ -100,6 +110,16 @@ class QuestionController extends Controller
 		$question->topics()->sync($topics);
 //		dd( 'qqq');
 		return redirect()->route( 'questions.show',[$question->id]);
+	}
+
+	public function destroy( $id ) {
+//		dd(11);
+		$questions = $this->questionRepository->byId( $id);
+		if(Auth::user()->owns($questions)){
+			$questions->delete();
+			return redirect('/');
+		}
+		abort( 403, 'Forbidden');
 	}
 
 }

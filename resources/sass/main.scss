@@ -30,3 +30,11 @@
   color: #fff;
   text-decoration: none;
 }
+.actions{
+  display: flex;
+  justify-content: space-between;
+}
+.edit{margin: 0 15px;}
+.delete-form{
+  margin: 0 15px;
+}

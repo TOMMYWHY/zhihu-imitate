@@ -11149,3 +11149,20 @@ a.text-dark:focus {
   text-decoration: none;
 }
 
+.actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.edit {
+  margin: 0 15px;
+}
+
+.delete-form {
+  margin: 0 15px;
+}
+

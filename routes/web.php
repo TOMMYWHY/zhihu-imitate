@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'QuestionController@index');
 
 Auth::routes();
 
@@ -26,7 +24,7 @@ Route::resource('/questions', 'QuestionController',['name'=>[
 	'show'=>'question.show',
 	'edit'=>'question.edit',
 	'update'=>'question.update',
-
+	'destroy'=>'question.delete'
 
 ]]);
 

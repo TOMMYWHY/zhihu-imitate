@@ -8,6 +8,7 @@
                         {{$question->title}}
                         @foreach($question->topics as $topic)
                             <a  href="/topic/{{$topic->id}}" class="topic_a pull-right">{{$topic->name}}</a>
+
                         @endforeach
                     </div>
 
@@ -17,6 +18,13 @@
                     <div class="actions">
                         @if(Auth::check()&&Auth::user()->owns($question))
                         <span class="edit"><a class="btn btn-success" href="/questions/{{$question->id}}/edit">edit</a></span>
+                            <form method="post" class="delete-form" action="/questions/{{$question->id}}">
+                                {{method_field('delete')}}
+                                {{csrf_field()}}
+                                <button class="btn btn-danger">
+                                    DETETE
+                                </button>
+                            </form>
                         @endif
                     </div>
                 </div>
