@@ -26,7 +26,23 @@ class Question extends Model
 		return $this->belongsTo( User::class);
 	}
 
+	/**
+	 * @param $query
+	 *
+	 * @return mixed
+	 */
 	public function scopePublished( $query ) {
 		return $query->where('is_hidden','F');
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function answers() {
+		return $this->hasMany(Answers::class);
+	}
+
+	public function followers() {
+		return $this->belongsToMany( User::class,'user_question')->withTimestamps();
 	}
 }

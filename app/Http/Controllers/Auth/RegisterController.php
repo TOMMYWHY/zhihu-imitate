@@ -72,6 +72,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
 	        'avatar'=>'/images/avatars/default.jpeg',
 	        'confirmation_token'=>str_random(48),
+	        'api_token'=>str_random(60),
         ]);
 
         $this->sendVerifyEmailToUser($user);

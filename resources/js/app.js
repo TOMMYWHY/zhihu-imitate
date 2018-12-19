@@ -8,26 +8,46 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+// import Vue from 'vue'
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+import Vuex from 'vuex';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('user-follow-button', require('./components/UserFollowButton.vue'));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('question-follow-button',require('./components/QuestionFollowButton.vue'));
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
+// import questionFollowButton from './components/QuestionFollowButton';
+Vue.component('question-follow-button', require('./components/QuestionFollowButton.vue'));
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+
+
+Vue.use(VueAxios, axios);
+Vue.use(Vuex);
+
+
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    // render: h => h(questionFollowButton), // 雨下面两行等效，将App.vue 挂载
+    // render: h => h(App),
+    // render: h => h(App), // 雨下面两行等效，将App.vue 挂载
+// template: '<App/>',
+//     components: { App },
+
+    // template: '<QuestiosnFollowButton/>',
+    // template: '<App/>',
+    components:{
+        // App,
+        // 'question-follow-button': QuestionFollowButton,
+        // QuestionFollowButton
+        // 'question-follow-button':'question-follow-button'
+
+    }
+
 });
+
+// Vue.use(VueResource);
+

@@ -22,6 +22,9 @@ try {
  */
 
 window.axios = require('axios');
+// window.VueAxios = require('vue-axios');
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -32,9 +35,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
+// let api_token = document.head.querySelector('meta[name="Authorization"]');
+
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = 'laravel token';
+
+    // window.axios.defaults.headers.common['Authorization'] = Laravel.apiToken;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }

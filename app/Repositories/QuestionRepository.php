@@ -22,8 +22,8 @@ class QuestionRepository {
 	 *
 	 * @return mixed
 	 */
-	public function byIdWithTopics( $id ) {
-		return Question::where('id',$id)->with('topics')->first();
+	public function byIdWithTopicsAndAnswers( $id ) {
+		return Question::where('id',$id)->with(['topics','answers'])->first();
 
 	}
 

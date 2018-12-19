@@ -25,7 +25,9 @@ Route::resource('/questions', 'QuestionController',['name'=>[
 	'edit'=>'question.edit',
 	'update'=>'question.update',
 	'destroy'=>'question.delete'
-
 ]]);
 
 
+Route::post('questions/{question}/answer','AnswersController@store');
+
+Route::get('questions/{question}/follow','QuestionFollowController@follow');

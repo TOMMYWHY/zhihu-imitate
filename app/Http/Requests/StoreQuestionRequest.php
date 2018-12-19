@@ -30,6 +30,9 @@ class StoreQuestionRequest extends FormRequest
         ];
     }
 
+	/**
+	 * @return array
+	 */
 	public function messages() {
 		 return [
 			'title.required' => 'title could not be empty~!',

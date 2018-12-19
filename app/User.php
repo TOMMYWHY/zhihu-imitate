@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar','confirmation_token'
+        'name', 'email', 'password','avatar','confirmation_token','api_token'
     ];
 
     /**
@@ -31,6 +31,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+	/**
+	 * @param string $token
+	 */
 	public function sendPasswordResetNotification( $token ) {
 		$data = ['url' => route( 'password.reset',$token)];
 		$template = new SendCloudTemplate('zhihu_app_password_rest', $data);
@@ -41,7 +44,39 @@ class User extends Authenticatable
 		});
     }
 
+	/**
+	 * @param Model $model
+	 *
+	 * @return mixed
+	 */
 	public function owns( Model $model) {
 		return $this->id = $model->user_id;
     }
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function answers() {
+		return $this->hasMany(Answers::class);
+	}
+
+	public function follows(  ) {
+//		return Follow::create([
+//			'question_id'=> $question,
+//			'user_id'=> $this->id,
+//		]);
+		 return $this->belongsToMany( Question::class,'user_question')->withTimestamps();
+	}
+
+	public function followThis( $question ) {
+		return $this->follows()->toggle( $question);
+	}
+
+	public function followed( $question ) {
+		return $this->follows()->where( 'question_id',$question)->count();
+	}
+
+	public function followers() {
+		return $this->belongsToMany( self::class,'followers','follower_id','followed_id')->withTimestamps();
+	}
 }
