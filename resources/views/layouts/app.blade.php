@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -83,8 +82,8 @@
         @include('flash::message')
     </div>
     <main class="py-4">
-        {{--@yield('content')--}}
-        <question-follow-button  question="3" user="3"></question-follow-button>
+        @yield('content')
+        {{--<question-follow-button  question="3" user="3"></question-follow-button>--}}
     </main>
 </div>
 </body>

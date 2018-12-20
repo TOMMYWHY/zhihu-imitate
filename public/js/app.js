@@ -13954,39 +13954,16 @@ window.Vue = __webpack_require__(37);
 
 
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-// Vue.component('user-follow-button', require('./components/UserFollowButton.vue'));
-
-// Vue.component('question-follow-button',require('./components/QuestionFollowButton.vue'));
-
-// import questionFollowButton from './components/QuestionFollowButton';
 Vue.component('question-follow-button', __webpack_require__(42));
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_axios___default.a, __WEBPACK_IMPORTED_MODULE_1_axios___default.a);
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_vuex__["a" /* default */]);
 
 var app = new Vue({
-    el: '#app',
-
-    // render: h => h(questionFollowButton), // 雨下面两行等效，将App.vue 挂载
-    // render: h => h(App),
-    // render: h => h(App), // 雨下面两行等效，将App.vue 挂载
-    // template: '<App/>',
-    //     components: { App },
-
-    // template: '<QuestiosnFollowButton/>',
-    // template: '<App/>',
-    components: {
-        // App,
-        // 'question-follow-button': QuestionFollowButton,
-        // QuestionFollowButton
-        // 'question-follow-button':'question-follow-button'
-
-    }
+  el: '#app',
+  components: {}
 
 });
-
-// Vue.use(VueResource);
 
 /***/ }),
 /* 14 */
@@ -49558,7 +49535,7 @@ exports = module.exports = __webpack_require__(45)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50027,14 +50004,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "QuestionFollowButton",
@@ -50042,8 +50011,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            // followed:null,
-            msg: 'ofadsffdaoo'
+            followed: false
         };
     },
 
@@ -50053,55 +50021,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.followed ? "followed" : "Haven't follow";
         }
     },
+
     created: function created() {
-        this.msg = 'tommy';
-        console.log(1);
-        this.fetchData();
+        var _this = this;
+
+        this.axios.post('/api/questions/follower', {
+            'question': this.question,
+            'user': this.user
+        }).then(function (res) {
+            console.log('/api/questions/follower', res.data);
+            _this.followed = res.data.followed;
+        });
     },
 
 
-    /*created(){
-          //异步请求
-          this.axios.post('/api/questions/follower',{
-            'question':this.question,
-            'user':this.user,
-        }).then(res =>{
-            console.log('/api/questions/follower',res.data);
-              this.followed = res.data.follow;
-        });
-    },*/
     methods: {
-        fetchData: function fetchData() {
-            var _this = this;
+        follow: function follow() {
+            var _this2 = this;
 
-            this.axios.post('/api/questions/follower', {
+            console.log('follow methods');
+            window.axios.post('/api/questions/follow', {
                 'question': this.question,
                 'user': this.user
             }).then(function (res) {
                 console.log(res.data);
-                _this.news = res.data; //此处data 是一个数组，内部存储的是对象；遍历是时使用 in
+                _this2.followed = res.data.followed;
             });
-        },
-        login: function login() {
-            this.msg = 'tommy';
-            console.log(1);
         }
     }
-    /*methods:{
-        onSubmit(){
-            this.msg='xxx';
-        },
-           follow(){
-            console.log(12222);
-            window.axios.post('/api/questions/follow',{
-                'question':this.question,
-                'user':this.user,
-            }).then(res =>{
-                console.log(res.data);
-                this.followed = res.data.followed;
-            });
-        }
-    },*/
 });
 
 /***/ }),
@@ -50113,22 +50060,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "" } }, [
-    _c("h1", [_vm._v("testing....")]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.msg))]),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-danger",
-        on: {
-          click: function($event) {
-            _vm.login()
-          }
-        }
-      },
-      [_vm._v("login")]
-    )
+    _c("button", {
+      staticClass: "btn btn-danger",
+      domProps: { textContent: _vm._s(_vm.text) },
+      on: { click: _vm.follow }
+    })
   ])
 }
 var staticRenderFns = []

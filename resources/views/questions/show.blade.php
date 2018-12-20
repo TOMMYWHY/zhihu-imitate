@@ -40,9 +40,9 @@
                     </div>
                     <div class="card-body">
 
-                        {{--<question-follow-button  question="{{$question->id}}" user="{{Auth::id()}}">
+                        <question-follow-button  question="{{$question->id}}" user="{{Auth::id()}}">
 
-                        </question-follow-button>--}}
+                        </question-follow-button>
                         <a href="#editor" class="btn btn-primary">ceate your answers</a>
                     </div>
                 </div>

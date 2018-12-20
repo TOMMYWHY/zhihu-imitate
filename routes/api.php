@@ -24,14 +24,14 @@ Route::get('/topics', function (Request $request) {
 
 
 
-Route::middleware('api')->post('/questions/follower', function (Request $request) {
+Route::middleware('auth:api')->post('/questions/follower', function (Request $request) {
 	$followed =\App\Follow::where('question_id',$request->get( 'question'))->where('user_id',$request->get( 'user'))->count();
 //	dd( $followed);
 //	dd( $request->all());
 //	return 1;
-	return response()->json(['follow'=>true]);
+//	return response()->json(['follow'=>true]);
 
-	if($followed >0){
+	if($followed){
 		return response()->json(['followed'=>true]);
 
 
