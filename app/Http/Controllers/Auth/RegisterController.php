@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mailer\UserMailer;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -81,7 +82,7 @@ class RegisterController extends Controller
     }
 
 	private function sendVerifyEmailToUser( $user ) {
-		$data = [
+		/*$data = [
 			'url' => route( 'email.verify',['token'=>$user->confirmation_token]),
 			'name'=>$user->name,
 		];
@@ -90,6 +91,7 @@ class RegisterController extends Controller
 		Mail::raw($template, function ($message) use($user){
 			$message->from('tommy_admin@zhihu.com', 'Tommy-zhihu');
 			$message->to($user->email);
-		});
+		});*/
+		(new UserMailer())->welcome( $user);
 	}
 }

@@ -11,9 +11,13 @@
 <script>
     export default {
         props:['user'],
+
         mounted() {
-            axios.get('/api/user/followers/' + this.user).then(response => {
-                this.followed = response.data.followed
+
+            this.axios.get('/api/user/followers/'+ this.user).then(response => {
+                this.followed = response.data.followed;
+                // console.log(11);
+                console.log(response.data);
             })
         },
         data() {
@@ -23,12 +27,13 @@
         },
         computed: {
             text() {
-                return this.followed ? '已关注' : '关注他'
+                return this.followed ? 'Followed' : 'Follow User'
             }
         },
         methods:{
             follow() {
-                this.$http.post('/api/user/follow',{'user':this.user}).then(response => {
+                console.log('props',this.user);
+                this.axios.post('/api/user/follow',{'user':this.user}).then(response => {
                     this.followed = response.data.followed
                 })
             }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Mailer\UserMailer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -35,13 +36,19 @@ class User extends Authenticatable
 	 * @param string $token
 	 */
 	public function sendPasswordResetNotification( $token ) {
-		$data = ['url' => route( 'password.reset',$token)];
+		/*$data = ['url' => route( 'password.reset',$token)];
 		$template = new SendCloudTemplate('zhihu_app_password_rest', $data);
 
 		Mail::raw($template, function ($message) {
 			$message->from('tommy_admin@zhihu.com', 'Tommy-zhihu');
 			$message->to($this->email);
-		});
+		});*/
+
+		(new UserMailer())->passwordReset( $this->email, $token);
+
+
+
+
     }
 
 	/**
@@ -78,5 +85,13 @@ class User extends Authenticatable
 
 	public function followers() {
 		return $this->belongsToMany( self::class,'followers','follower_id','followed_id')->withTimestamps();
+	}
+
+	public function followersUser() {
+		return $this->belongsToMany( self::class,'followers','followed_id','follower_id')->withTimestamps();
+	}
+
+	public function followThisUser($user) {
+		return $this->followers()->toggle( $user);
 	}
 }

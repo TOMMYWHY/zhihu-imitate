@@ -38,12 +38,12 @@
                         <h2>{{$question->followers_count}}</h2>
                         <span> Followers</span>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body horizontal">
 
-                        <question-follow-button  question="{{$question->id}}" user="{{Auth::id()}}">
+                        <question-follow-button  question="{{$question->id}}">
 
                         </question-follow-button>
-                        <a href="#editor" class="btn btn-primary">ceate your answers</a>
+                        <a href="#editor" class="btn btn-primary"> Answer</a>
                     </div>
                 </div>
             </div>
@@ -68,8 +68,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <a href="">
-                                        <img width="48px" src="{{$answer->user->avatar}}"
-                                             alt="{{$answer->user->name}}">{{$answer->user->name}}
+                                        <img width="48px" src="{{$answer->user->avatar}}" alt="{{$answer->user->name}}">{{$answer->user->name}}
                                     </a>
                                 </div>
                                 <div class="media-body">
@@ -114,23 +113,29 @@
             <div class="col-md-3">
                 <div class="card card-default">
                     <div class="card-heading question-follow">
+                        <br>
                         <h5>About User</h5>
                     </div>
                     <div class="card-body">
-                        <div class="media">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="img-thumbnail" src="{{$question->user->avatar}}" alt="">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    <a href="">
-                                        {{$question->user->name}}
+                        <div class="media" style="flex-flow: column">
+
+                            <div class="horizontal">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="" src="{{$question->user->avatar}}" alt="" style="width: 36px; margin: 0 10px">
                                     </a>
-                                </h4>
+                                </div>
+
+                                <div class="media-body" >
+                                    <h4 class="media-heading">
+                                        <a href="">
+                                            {{$question->user->name}}
+                                        </a>
+                                    </h4>
+                                </div>
+
                             </div>
-                            <div class="user-statics">
+                            <div class="user-statics" style="">
                                 <div class="statics-item text-center">
                                     <div class="statics-text">Question</div>
                                     <div class="statics-count">{{$question->user->questions_count}}</div>
@@ -142,16 +147,19 @@
 
                                 </div>
                                 <div class="statics-item text-center">
-                                    <div class="statics-text">Question</div>
+                                    <div class="statics-text">followers</div>
                                     <div class="statics-count">{{$question->user->followers_count}}</div>
 
                                 </div>
 
                             </div>
 
+
                         </div>
-                       {{-- <user-follow-button  user="{{$question->user->id}}">
-                        </user-follow-button>--}}
+                        <user-follow-button  user="{{$question->user_id}}">
+                        {{--<user-follow-button  user="3">--}}
+                        </user-follow-button>
+
                         <a href="#editor" class="btn btn-primary pull-right">send a message</a>
                     </div>
                 </div>
