@@ -15,6 +15,7 @@ import Vuex from 'vuex';
 
 Vue.component('question-follow-button', require('./components/QuestionFollowButton.vue'));
 Vue.component('user-follow-button',require('./components/UserFollowButton'));
+Vue.component('user-vote-button',require('./components/UserVoteButton'));
 
 Vue.use(VueAxios, axios);
 Vue.use(Vuex);

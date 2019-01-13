@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Answers;
+use App\Answer;
 use App\Http\Requests\StoreAnswerRequest;
 use App\Repositories\AnswerRepository;
 use Illuminate\Http\Request;

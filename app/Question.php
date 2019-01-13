@@ -39,7 +39,7 @@ class Question extends Model
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
 	public function answers() {
-		return $this->hasMany(Answers::class);
+		return $this->hasMany(Answer::class);
 	}
 
 	public function followers() {
